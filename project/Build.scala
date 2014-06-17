@@ -42,7 +42,7 @@ object ConfigBuild extends Build {
           </developers>
         ),
       organization := "org.sisioh",
-      version := "0.0.3",
+      version := "0.0.4-SNAPSHOT",
       scalaVersion := "2.11.0",
       crossScalaVersions := Seq("2.11.0", "2.10.4"),
       scalacOptions ++= Seq("-encoding", "UTF-8", "-feature", "-deprecation", "-unchecked"),
