@@ -1,5 +1,7 @@
 # sisioh config
 
+[![Build Status](https://travis-ci.org/sisioh/sisioh-config.svg?branch=develop)](https://travis-ci.org/sisioh/sisioh-config)
+
 sisioh-config is scala wrapper for typesafe [config](https://github.com/typesafehub/config).
 
 ## setup
