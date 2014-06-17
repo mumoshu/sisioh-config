@@ -3,6 +3,7 @@ package org.sisioh.config
 import org.specs2.mutable.Specification
 import java.io.File
 import com.typesafe.config.ConfigObject
+import scala.collection.mutable.ArrayBuffer
 
 class ConfigurationSpec extends Specification {
 
@@ -12,15 +13,15 @@ class ConfigurationSpec extends Specification {
 
     "be accessible as an entry set" in {
       val map = Map(configInMap.entrySet.toList: _*)
-      map.keySet must contain("foo.bar1", "foo.bar2", "blah").only
+      map.keySet must contain("foo.bar1", "foo.bar2", "blah").inOrder
     }
 
     "make all paths accessible" in {
-      configInMap.keys must contain("foo.bar1", "foo.bar2", "blah").only
+      configInMap.keys must contain("foo.bar1", "foo.bar2", "blah").inOrder
     }
 
     "make all sub keys accessible" in {
-      configInMap.subKeys must contain("foo", "blah").only
+      configInMap.subKeys must contain("foo", "blah").inOrder
     }
 
     "get value as boolean" in {
@@ -30,7 +31,7 @@ class ConfigurationSpec extends Specification {
 
     "get values as boolean" in {
       val config = Configuration.parseMap(Map("boolean.v2" -> Seq(false, true)))
-      config.getBooleanValues("boolean.v2") must beSome(Seq(false, true))
+      config.getBooleanValues("boolean.v2") must_== Some(ArrayBuffer(false, true))
     }
 
   }
@@ -41,15 +42,15 @@ class ConfigurationSpec extends Specification {
 
     "be accessible as an entry set" in {
       val map = Map(configInFile.entrySet.toList: _*)
-      map.keySet must contain("foo.bar1", "foo.bar2", "blah").only
+      map.keySet must contain("foo.bar1", "foo.bar2", "blah").inOrder
     }
 
     "make all paths accessible" in {
-      configInFile.keys must contain("foo.bar1", "foo.bar2", "blah").only
+      configInFile.keys must contain("foo.bar1", "foo.bar2", "blah").inOrder
     }
 
     "make all sub keys accessible" in {
-      configInFile.subKeys must contain("foo", "blah").only
+      configInFile.subKeys must contain("foo", "blah").inOrder
     }
 
     "get value as boolean" in {
@@ -59,7 +60,7 @@ class ConfigurationSpec extends Specification {
     }
 
     "get values as boolean" in {
-      configInFile.getBooleanValues("boolean.v2") must beSome(Seq(false, true))
+      configInFile.getBooleanValues("boolean.v2") must_== (Some(ArrayBuffer(false, true)))
     }
 
     "get configuration" in {
