@@ -6,7 +6,7 @@ object ConfigBuild extends Build {
   val root = Project(
     id = "sisioh-config",
     base = file("."),
-    settings = Project.defaultSettings ++ Seq(
+    settings = Seq(
       publishMavenStyle := true,
       publishArtifact in Test := false,
       pomIncludeRepository := {
@@ -43,17 +43,29 @@ object ConfigBuild extends Build {
         ),
       organization := "org.sisioh",
       version := "0.0.3",
-      scalaVersion := "2.10.2",
+      scalaVersion := "2.11.0",
+      crossScalaVersions := Seq("2.11.0", "2.10.4"),
       scalacOptions ++= Seq("-encoding", "UTF-8", "-feature", "-deprecation", "-unchecked"),
       javacOptions ++= Seq("-encoding", "UTF-8", "-deprecation"),
       libraryDependencies ++= Seq(
-        "org.scala-lang" % "scala-reflect" % "2.10.2",
         "junit" % "junit" % "4.8.1" % "test",
         "org.hamcrest" % "hamcrest-all" % "1.3" % "test",
         "org.mockito" % "mockito-core" % "1.9.5" % "test",
-        "org.specs2" %% "specs2" % "1.14" % "test",
-        "com.typesafe" % "config" % "1.0.2"
-      )
+        "com.typesafe" % "config" % "1.2.1",
+        "org.specs2" %% "specs2" % "2.3.12" % "test"
+      ),
+      libraryDependencies := {
+        CrossVersion.partialVersion(scalaVersion.value) match {
+          case Some((2, scalaMajor)) if scalaMajor >= 11 =>
+            libraryDependencies.value ++ Seq( 
+              "org.scala-lang" % "scala-reflect" % "2.11.0"
+            ) 
+          case _ =>
+            libraryDependencies.value ++ Seq(
+              "org.scala-lang" % "scala-reflect" % "2.10.4"
+            )
+        }
+      }
     )
   )
 }
