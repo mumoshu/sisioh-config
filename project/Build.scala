@@ -55,14 +55,6 @@ object ConfigBuild extends Build {
       pomIncludeRepository := {
         _ => false
       },
-//      publishTo <<= version {
-//        (v: String) =>
-//          val nexus = "https://oss.sonatype.org/"
-//          if (v.trim.endsWith("SNAPSHOT"))
-//            Some("snapshots" at nexus + "content/repositories/snapshots")
-//          else
-//            Some("releases" at nexus + "service/local/staging/deploy/maven2")
-//      },
       credentials ++= {
         val sonatype = ("Sonatype Nexus Repository Manager", "oss.sonatype.org")
         def loadMavenCredentials(file: java.io.File): Seq[Credentials] = {
