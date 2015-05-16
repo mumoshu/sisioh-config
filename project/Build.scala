@@ -36,8 +36,7 @@ object ConfigBuild extends Build {
         "org.hamcrest" % "hamcrest-all" % "1.3" % "test",
         "org.mockito" % "mockito-core" % "1.9.5" % "test",
         "com.typesafe" % "config" % "1.3.0",
-        "org.specs2" %% "specs2" % "2.3.12" % "test",
-        "org.scalaz" %% "scalaz-core" % "7.1.1"
+        "org.specs2" %% "specs2" % "2.3.12" % "test"
       ),
       libraryDependencies := {
         CrossVersion.partialVersion(scalaVersion.value) match {

@@ -9,7 +9,6 @@ import com.typesafe.config._
 
 import scala.collection.JavaConverters._
 import scala.util.{ Failure, Try }
-import scalaz.Monoid
 
 /**
  * This object provides a set of operations to create `Configuration` values.
@@ -810,17 +809,6 @@ private[config] case class ConfigurationImpl(underlying: Config) extends Configu
   def checkValid(reference: Configuration, restrictToPaths: String*): Try[Unit] = Try {
     underlying.checkValid(reference.underlying, restrictToPaths: _*)
   }
-}
-
-trait ConfigurationFunctions {
-
-  implicit val configurationMonoidInstance = new Monoid[Configuration] {
-
-    override def zero: Configuration = Configuration.empty
-
-    override def append(f1: Configuration, f2: => Configuration): Configuration =
-      f1 ++ f2
-
-  }
 
 }
+
