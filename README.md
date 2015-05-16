@@ -16,13 +16,17 @@ Add the following to your sbt build (Scala 2.10.x, and Scala 2.11.x):
 ### Release Version
 
 ```scala
-libraryDependencies += "org.sisioh" %% "sisioh-config" % "0.0.6"
+resolvers += "Sonatype OSS Release Repository" at "https://oss.sonatype.org/content/repositories/releases/"
+
+libraryDependencies += "org.sisioh" %% "sisioh-config" % "0.0.7"
 ```
 
 ### Snapshot Version
 
 ```scala
-libraryDependencies += "org.sisioh" %% "sisioh-config" % "0.0.7-SNAPSHOT"
+resolvers += "Sonatype OSS Snapshot Repository" at "https://oss.sonatype.org/content/repositories/snapshots/"
+
+libraryDependencies += "org.sisioh" %% "sisioh-config" % "0.0.8-SNAPSHOT"
 ```
 
 ## usage
