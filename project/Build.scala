@@ -25,7 +25,7 @@ object ConfigBuild extends Build {
     id = "sisioh-config",
     base = file("."),
     settings = scalariformSettings ++ Seq(
-      sonatypeProfileName := "org.sisioh.sisioh-config",
+      sonatypeProfileName := "org.sisioh",
       organization := "org.sisioh",
       scalaVersion := scala211Version,
       crossScalaVersions := Seq(scala210Version, scala211Version),
