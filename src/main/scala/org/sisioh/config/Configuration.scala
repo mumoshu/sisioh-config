@@ -1,15 +1,15 @@
 package org.sisioh.config
 
-import java.util.concurrent.TimeUnit
-
-import com.typesafe.config._
 import java.io._
 import java.net.URL
 import java.util.Properties
-import scala.collection.JavaConverters._
-import scala.util.{Failure, Try}
-import scalaz.Monoid
+import java.util.concurrent.TimeUnit
 
+import com.typesafe.config._
+
+import scala.collection.JavaConverters._
+import scala.util.{ Failure, Try }
+import scalaz.Monoid
 
 /**
  * This object provides a set of operations to create `Configuration` values.
@@ -83,11 +83,10 @@ object Configuration {
 
   private def toJMap(values: Map[String, Any]): java.util.Map[String, _ <: AnyRef] =
     values.map {
-      case (k, v: Map[_, _]) => (k, v.asJava)
+      case (k, v: Map[_, _])   => (k, v.asJava)
       case (k, v: Iterable[_]) => (k, v.asJava)
-      case (k, v) => (k, v)
+      case (k, v)              => (k, v)
     }.asJava.asInstanceOf[java.util.Map[String, _ <: AnyRef]]
-
 
   def parseMap(values: Map[String, Any]): Configuration = {
     apply(ConfigFactory.parseMap(toJMap(values)))
@@ -103,7 +102,6 @@ object Configuration {
 
   def apply(config: Config): Configuration =
     new ConfigurationImpl(config)
-
 
   def load: Configuration =
     apply(ConfigFactory.load())
@@ -146,7 +144,6 @@ object Configuration {
 
   def parseFileAnySyntax(fileBasename: File, parseOptions: ConfigurationParseOptions): Configuration =
     apply(ConfigFactory.parseFileAnySyntax(fileBasename, parseOptions.underlying))
-
 
   def load(resourceBaseName: String): Configuration =
     apply(ConfigFactory.load(resourceBaseName))
@@ -653,8 +650,7 @@ trait Configuration extends ConfigurationMergeable {
   def withFallback(other: ConfigurationMergeable): Configuration
 }
 
-private[config]
-case class ConfigurationImpl(underlying: Config) extends Configuration {
+private[config] case class ConfigurationImpl(underlying: Config) extends Configuration {
 
   def resolve(option: ConfigurationResolveOptions): Configuration =
     Configuration(underlying.resolve(option.underlying))
@@ -679,9 +675,9 @@ case class ConfigurationImpl(underlying: Config) extends Configuration {
       value =>
         validValues match {
           case Some(values) if values.contains(value) => value
-          case Some(values) if values.isEmpty => value
-          case Some(values) => throw reportError(key, "Incorrect value, one of " + (values.reduceLeft(_ + ", " + _)) + " was expected.")
-          case None => value
+          case Some(values) if values.isEmpty         => value
+          case Some(values)                           => throw reportError(key, "Incorrect value, one of " + (values.reduceLeft(_ + ", " + _)) + " was expected.")
+          case None                                   => value
         }
     }
 
@@ -695,8 +691,8 @@ case class ConfigurationImpl(underlying: Config) extends Configuration {
   @deprecated("it's the old method.", "v0.0.5")
   def getNanosecondValue(key: String): Option[Long] = readValue(key, underlying.getNanoseconds(key))
 
-  def getDurationValue(key: String, timeUnit: TimeUnit): Option[Long] = readValue(key,  underlying.getDuration(key, timeUnit))
-  
+  def getDurationValue(key: String, timeUnit: TimeUnit): Option[Long] = readValue(key, underlying.getDuration(key, timeUnit))
+
   def getByteValue(key: String): Option[Long] = readValue(key, underlying.getBytes(key))
 
   def getConfiguration(key: String): Option[Configuration] = readValue(key, underlying.getConfig(key)).map(Configuration(_))
@@ -819,10 +815,12 @@ case class ConfigurationImpl(underlying: Config) extends Configuration {
 trait ConfigurationFunctions {
 
   implicit val configurationMonoidInstance = new Monoid[Configuration] {
+
     override def zero: Configuration = Configuration.empty
 
     override def append(f1: Configuration, f2: => Configuration): Configuration =
       f1 ++ f2
+
   }
 
 }

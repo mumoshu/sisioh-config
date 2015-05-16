@@ -42,10 +42,8 @@ trait ConfigurationParseOptions {
   def getClassLoader: ClassLoader
 }
 
-private[config]
-case class ConfigurationParseOptionsImpl
-(underlying: ConfigParseOptions = ConfigParseOptions.defaults())
-  extends ConfigurationParseOptions {
+private[config] case class ConfigurationParseOptionsImpl(underlying: ConfigParseOptions = ConfigParseOptions.defaults())
+    extends ConfigurationParseOptions {
 
   def setSyntax(syntax: ConfigurationSyntax.Value): ConfigurationParseOptions =
     ConfigurationParseOptions(underlying.setSyntax(ConfigurationSyntax.toCore(syntax)))

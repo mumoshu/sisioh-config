@@ -1,18 +1,32 @@
+import com.typesafe.sbt.SbtScalariform
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import sbt.Keys._
 import sbt._
+
+import scalariform.formatter.preferences._
 
 object ConfigBuild extends Build {
 
   val scala211Version = "2.11.6"
   val scala210Version = "2.10.5"
 
+  lazy val scalariformSettings = SbtScalariform.scalariformSettings ++ Seq(
+    ScalariformKeys.preferences :=
+      ScalariformKeys.preferences.value
+        .setPreference(AlignParameters, true)
+        .setPreference(AlignSingleLineCaseStatements, true)
+        .setPreference(DoubleIndentClassDeclaration, true)
+        .setPreference(PreserveDanglingCloseParenthesis, true)
+        .setPreference(MultilineScaladocCommentsStartOnFirstLine, false)
+  )
+
   val root = Project(
     id = "sisioh-config",
     base = file("."),
-    settings = Seq(
+    settings = scalariformSettings ++ Seq(
       organization := "org.sisioh",
       version := "0.0.5-SNAPSHOT",
-      scalaVersion := scala210Version,
+      scalaVersion := scala211Version,
       crossScalaVersions := Seq(scala210Version, scala211Version),
       scalacOptions ++= Seq("-encoding", "UTF-8", "-feature", "-deprecation", "-unchecked"),
       javacOptions ++= Seq("-encoding", "UTF-8", "-deprecation"),
@@ -22,7 +36,7 @@ object ConfigBuild extends Build {
         "org.mockito" % "mockito-core" % "1.9.5" % "test",
         "com.typesafe" % "config" % "1.3.0",
         "org.specs2" %% "specs2" % "2.3.12" % "test",
-        "org.scalaz" %% "scalaz-core" % "7.1.1" % "test"
+        "org.scalaz" %% "scalaz-core" % "7.1.1"
       ),
       libraryDependencies := {
         CrossVersion.partialVersion(scalaVersion.value) match {

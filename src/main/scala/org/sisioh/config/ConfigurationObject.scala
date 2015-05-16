@@ -10,7 +10,6 @@ object ConfigurationObject {
 
 }
 
-
 trait ConfigurationObject extends ConfigurationValue {
 
   val underlying: ConfigObject
@@ -33,9 +32,8 @@ trait ConfigurationObject extends ConfigurationValue {
 
 }
 
-private[config]
-case class ConfigurationObjectImpl(underlying: ConfigObject)
-  extends ConfigurationObject {
+private[config] case class ConfigurationObjectImpl(underlying: ConfigObject)
+    extends ConfigurationObject {
 
   def toConfig = Configuration(underlying.toConfig)
 
@@ -57,7 +55,7 @@ case class ConfigurationObjectImpl(underlying: ConfigObject)
 
   def origin: ConfigurationOrigin = ConfigurationOrigin(underlying.origin())
 
-  def valueType  = ConfigurationValueType(underlying.valueType())
+  def valueType = ConfigurationValueType(underlying.valueType())
 
   def valueAsString: Option[String] = None
 

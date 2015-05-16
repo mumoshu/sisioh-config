@@ -21,10 +21,8 @@ trait ConfigurationParseable {
 
 }
 
-private[config]
-case class ConfigurationParseableImpl
-(underlying: ConfigParseable)
-  extends ConfigurationParseable {
+private[config] case class ConfigurationParseableImpl(underlying: ConfigParseable)
+    extends ConfigurationParseable {
 
   def parse(options: ConfigurationParseOptions): ConfigurationObject =
     ConfigurationObject(underlying.parse(options.underlying))

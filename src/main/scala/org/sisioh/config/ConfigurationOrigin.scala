@@ -4,14 +4,12 @@ import com.typesafe.config.ConfigOrigin
 import java.net.URL
 import scala.collection.JavaConverters._
 
-
 object ConfigurationOrigin {
 
   def apply(configOrigin: ConfigOrigin): ConfigurationOrigin =
     ConfigurationOriginImpl(configOrigin)
 
 }
-
 
 trait ConfigurationOrigin {
 
@@ -31,11 +29,8 @@ trait ConfigurationOrigin {
 
 }
 
-
-private[config]
-case class ConfigurationOriginImpl
-(underlying: ConfigOrigin)
-  extends ConfigurationOrigin {
+private[config] case class ConfigurationOriginImpl(underlying: ConfigOrigin)
+    extends ConfigurationOrigin {
 
   def description = Option(underlying.description())
 

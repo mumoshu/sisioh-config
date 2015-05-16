@@ -9,7 +9,6 @@ object ConfigurationIncludeContext {
 
 }
 
-
 trait ConfigurationIncludeContext {
 
   val underlying: ConfigIncludeContext
@@ -20,10 +19,8 @@ trait ConfigurationIncludeContext {
 
 }
 
-private[config]
-case class ConfigurationIncludeContextImpl
-(val underlying: ConfigIncludeContext)
-  extends ConfigurationIncludeContext {
+private[config] case class ConfigurationIncludeContextImpl(val underlying: ConfigIncludeContext)
+    extends ConfigurationIncludeContext {
 
   def relativeTo(filename: String): ConfigurationParseable =
     ConfigurationParseable(underlying.relativeTo(filename))

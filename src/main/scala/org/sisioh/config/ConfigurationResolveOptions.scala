@@ -23,10 +23,8 @@ trait ConfigurationResolveOptions {
 
 }
 
-private[config]
-case class ConfigurationResolveOptionsImpl
-(private val useSystemEnvironment: Boolean)
-  extends ConfigurationResolveOptions {
+private[config] case class ConfigurationResolveOptionsImpl(private val useSystemEnvironment: Boolean)
+    extends ConfigurationResolveOptions {
 
   val underlying = ConfigResolveOptions.defaults.setUseSystemEnvironment(useSystemEnvironment)
 

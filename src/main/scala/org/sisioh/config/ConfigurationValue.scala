@@ -1,6 +1,6 @@
 package org.sisioh.config
 
-import com.typesafe.config.{ConfigValueType, ConfigValue}
+import com.typesafe.config.{ ConfigValueType, ConfigValue }
 import scala.collection.JavaConverters._
 
 object ConfigurationValue {
@@ -10,9 +10,8 @@ object ConfigurationValue {
 
 }
 
-
 trait ConfigurationValue
-  extends ConfigurationMergeable {
+    extends ConfigurationMergeable {
 
   val underlying: ConfigValue
 
@@ -40,9 +39,8 @@ trait ConfigurationValue
 
 }
 
-private[config]
-case class ConfigurationValueImpl(underlying: ConfigValue)
-  extends ConfigurationValue {
+private[config] case class ConfigurationValueImpl(underlying: ConfigValue)
+    extends ConfigurationValue {
 
   def origin = ConfigurationOrigin(underlying.origin())
 
@@ -50,10 +48,10 @@ case class ConfigurationValueImpl(underlying: ConfigValue)
 
   def value: Option[Any] = {
     underlying.unwrapped() match {
-      case null => None
+      case null                   => None
       case v: java.util.Map[_, _] => Some(v.asScala)
-      case v: java.util.List[_] => Some(v.asScala.toSeq)
-      case v => Some(v)
+      case v: java.util.List[_]   => Some(v.asScala.toSeq)
+      case v                      => Some(v)
     }
   }
 
