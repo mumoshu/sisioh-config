@@ -19,7 +19,7 @@ trait ConfigurationIncluder {
 
 }
 
-private[config] case class ConfigurationIncluderImpl(val underlying: ConfigIncluder)
+private[config] case class ConfigurationIncluderImpl(underlying: ConfigIncluder)
     extends ConfigurationIncluder {
 
   def withFallback(fallback: ConfigurationIncluder): ConfigurationIncluder =

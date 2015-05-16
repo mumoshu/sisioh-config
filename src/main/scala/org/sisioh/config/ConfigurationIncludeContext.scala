@@ -19,7 +19,7 @@ trait ConfigurationIncludeContext {
 
 }
 
-private[config] case class ConfigurationIncludeContextImpl(val underlying: ConfigIncludeContext)
+private[config] case class ConfigurationIncludeContextImpl(underlying: ConfigIncludeContext)
     extends ConfigurationIncludeContext {
 
   def relativeTo(filename: String): ConfigurationParseable =
