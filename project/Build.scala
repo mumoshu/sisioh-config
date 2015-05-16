@@ -1,5 +1,6 @@
 import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
+import xerial.sbt.Sonatype.SonatypeKeys._
 import sbt.Keys._
 import sbt._
 
@@ -24,8 +25,8 @@ object ConfigBuild extends Build {
     id = "sisioh-config",
     base = file("."),
     settings = scalariformSettings ++ Seq(
+      sonatypeProfileName := "org.sisioh.sisioh-config",
       organization := "org.sisioh",
-      version := "0.0.5-SNAPSHOT",
       scalaVersion := scala211Version,
       crossScalaVersions := Seq(scala210Version, scala211Version),
       scalacOptions ++= Seq("-encoding", "UTF-8", "-feature", "-deprecation", "-unchecked"),
@@ -55,14 +56,14 @@ object ConfigBuild extends Build {
       pomIncludeRepository := {
         _ => false
       },
-      publishTo <<= version {
-        (v: String) =>
-          val nexus = "https://oss.sonatype.org/"
-          if (v.trim.endsWith("SNAPSHOT"))
-            Some("snapshots" at nexus + "content/repositories/snapshots")
-          else
-            Some("releases" at nexus + "service/local/staging/deploy/maven2")
-      },
+//      publishTo <<= version {
+//        (v: String) =>
+//          val nexus = "https://oss.sonatype.org/"
+//          if (v.trim.endsWith("SNAPSHOT"))
+//            Some("snapshots" at nexus + "content/repositories/snapshots")
+//          else
+//            Some("releases" at nexus + "service/local/staging/deploy/maven2")
+//      },
       credentials ++= {
         val sonatype = ("Sonatype Nexus Repository Manager", "oss.sonatype.org")
         def loadMavenCredentials(file: java.io.File): Seq[Credentials] = {
