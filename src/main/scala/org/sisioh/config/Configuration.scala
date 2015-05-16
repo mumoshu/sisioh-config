@@ -1,11 +1,14 @@
 package org.sisioh.config
 
+import java.util.concurrent.TimeUnit
+
 import com.typesafe.config._
 import java.io._
 import java.net.URL
 import java.util.Properties
 import scala.collection.JavaConverters._
 import scala.util.{Failure, Try}
+import scalaz.Monoid
 
 
 /**
@@ -686,10 +689,14 @@ case class ConfigurationImpl(underlying: Config) extends Configuration {
 
   def getBooleanValue(key: String): Option[Boolean] = readValue(key, underlying.getBoolean(key))
 
+  @deprecated("it's the old method.", "v0.0.5")
   def getMillisecondValue(key: String): Option[Long] = readValue(key, underlying.getMilliseconds(key))
 
+  @deprecated("it's the old method.", "v0.0.5")
   def getNanosecondValue(key: String): Option[Long] = readValue(key, underlying.getNanoseconds(key))
 
+  def getDurationValue(key: String, timeUnit: TimeUnit): Option[Long] = readValue(key,  underlying.getDuration(key, timeUnit))
+  
   def getByteValue(key: String): Option[Long] = readValue(key, underlying.getBytes(key))
 
   def getConfiguration(key: String): Option[Configuration] = readValue(key, underlying.getConfig(key)).map(Configuration(_))
@@ -726,9 +733,11 @@ case class ConfigurationImpl(underlying: Config) extends Configuration {
   def getLongValues(key: String): Option[Seq[Long]] =
     readValue(key, underlying.getLongList(key).asScala.toSeq.map(e => e.toLong))
 
+  @deprecated("it's the old method.", "v0.0.5")
   def getMillisecondValues(key: String): Option[Seq[Long]] =
     readValue(key, underlying.getMillisecondsList(key).asScala.toSeq.map(e => e.toLong))
 
+  @deprecated("it's the old method.", "v0.0.5")
   def getNanosecondValues(key: String): Option[Seq[Long]] =
     readValue(key, underlying.getNanosecondsList(key).asScala.toSeq.map(e => e.toLong))
 
@@ -805,4 +814,15 @@ case class ConfigurationImpl(underlying: Config) extends Configuration {
   def checkValid(reference: Configuration, restrictToPaths: String*): Try[Unit] = Try {
     underlying.checkValid(reference.underlying, restrictToPaths: _*)
   }
+}
+
+trait ConfigurationFunctions {
+
+  implicit val configurationMonoidInstance = new Monoid[Configuration] {
+    override def zero: Configuration = Configuration.empty
+
+    override def append(f1: Configuration, f2: => Configuration): Configuration =
+      f1 ++ f2
+  }
+
 }
