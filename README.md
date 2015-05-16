@@ -1,6 +1,10 @@
 # sisioh config
 
 [![Build Status](https://travis-ci.org/sisioh/sisioh-config.svg?branch=develop)](https://travis-ci.org/sisioh/sisioh-config)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.sisioh/sisioh-config_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.sisioh/sisioh-config_2.11)
+[![Scaladoc](http://javadoc-badge.appspot.com/org.sisioh/sisioh-config.svg?label=scaladoc)](http://javadoc-badge.appspot.com/org.sisioh/sisioh-config_2.11)
+[![Reference Status](https://www.versioneye.com/java/org.sisioh:sisioh-config_2.11/reference_badge.svg?style=flat)](https://www.versioneye.com/java/org.sisioh:sisioh-config_2.11/references)
+
 
 sisioh-config is scala wrapper for typesafe [config](https://github.com/typesafehub/config).
 
@@ -10,18 +14,7 @@ Build Configuration
 
 for build.sbt
 ```scala
-resolvers ++= Seq(
-  // ...
-  // for snapshot
-  "Sonatype Snapshot Repository" at "https://oss.sonatype.org/content/repositories/snapshots/",
-  // ...
-)
-
-libraryDependencies ++= Seq(
-  // ...
-  "org.sisioh" %% "sisioh-config" % "0.0.2-SNAPSHOT",
-  // ...
-)
+libraryDependencies += "org.sisioh" %% "sisioh-config" % "0.0.6"
 ```
 
 for Build.scala
@@ -30,16 +23,10 @@ object AppBuild extends Build {
   val root = Project(
     id = "app",
     base = file("."),
-    resolvers ++= Seq(
-      // ...
-      // for snapshot
-      "Sonatype Snapshot Repository" at "https://oss.sonatype.org/content/repositories/snapshots/",
-      // ...
-    ),
     settings = Project.defaultSettings ++ Seq(
       libraryDependencies ++= Seq(
         // ...
-        "org.sisioh" %% "sisioh-config" % "0.0.2-SNAPSHOT",
+        "org.sisioh" %% "sisioh-config" % "0.0.6",
         // ...
       )
     )
