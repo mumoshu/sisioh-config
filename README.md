@@ -1,5 +1,7 @@
 # sisioh config
 
+[![Join the chat at https://gitter.im/sisioh/sisioh-config](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sisioh/sisioh-config?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/sisioh/sisioh-config.svg?branch=develop)](https://travis-ci.org/sisioh/sisioh-config)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.sisioh/sisioh-config_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.sisioh/sisioh-config_2.11)
 [![Scaladoc](http://javadoc-badge.appspot.com/org.sisioh/sisioh-config.svg?label=scaladoc)](http://javadoc-badge.appspot.com/org.sisioh/sisioh-config_2.11)
