@@ -1,8 +1,8 @@
 import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
-import xerial.sbt.Sonatype.SonatypeKeys._
 import sbt.Keys._
 import sbt._
+import xerial.sbt.Sonatype.SonatypeKeys._
 
 import scalariform.formatter.preferences._
 
@@ -46,7 +46,7 @@ object ConfigBuild extends Build {
             )
           case _ =>
             libraryDependencies.value ++ Seq(
-              "org.scala-lang" % "scala-reflect" %  scala210Version
+              "org.scala-lang" % "scala-reflect" % scala210Version
             )
         }
       },
@@ -54,23 +54,6 @@ object ConfigBuild extends Build {
       publishArtifact in Test := false,
       pomIncludeRepository := {
         _ => false
-      },
-      credentials ++= {
-        val sonatype = ("Sonatype Nexus Repository Manager", "oss.sonatype.org")
-        def loadMavenCredentials(file: java.io.File): Seq[Credentials] = {
-          xml.XML.loadFile(file) \ "servers" \ "server" map (s => {
-            val host = (s \ "id").text
-            val realm = if (host == sonatype._2) sonatype._1 else "Unknown"
-            Credentials(realm, host, (s \ "username").text, (s \ "password").text)
-          })
-        }
-        val ivyCredentials = Path.userHome / ".ivy2" / ".credentials"
-        val mavenCredentials = Path.userHome / ".m2" / "settings.xml"
-        (ivyCredentials.asFile, mavenCredentials.asFile) match {
-          case (ivy, _) if ivy.canRead => Credentials(ivy) :: Nil
-          case (_, mvn) if mvn.canRead => loadMavenCredentials(mvn)
-          case _ => Nil
-        }
       },
       pomExtra := (
         <url>https://github.com/sisioh/sisioh-config</url>
@@ -92,7 +75,11 @@ object ConfigBuild extends Build {
               <url>http://j5ik2o.me</url>
             </developer>
           </developers>
-        )
+        ),
+      credentials := {
+        val ivyCredentials = (baseDirectory in LocalRootProject).value / ".credentials"
+        Credentials(ivyCredentials) :: Nil
+      }
     )
   )
 }
