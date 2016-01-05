@@ -28,7 +28,7 @@ libraryDependencies += "org.sisioh" %% "sisioh-config" % "0.0.8"
 ```scala
 resolvers += "Sonatype OSS Snapshot Repository" at "https://oss.sonatype.org/content/repositories/snapshots/"
 
-libraryDependencies += "org.sisioh" %% "sisioh-config" % "0.0.8-SNAPSHOT"
+libraryDependencies += "org.sisioh" %% "sisioh-config" % "0.0.9-SNAPSHOT"
 ```
 
 ## usage
