@@ -38,7 +38,7 @@ class ConfigurationSpec extends Specification {
 
   "configuration in File" should {
 
-    val configInFile = Configuration.parseFile(new File("src/test/resources/conf/application.conf"))
+    val configInFile = Configuration.parseFile(new File("config/src/test/resources/conf/application.conf"))
 
     "be accessible as an entry set" in {
       val map = Map(configInFile.entrySet.toList: _*)
